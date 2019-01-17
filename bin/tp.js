@@ -57,11 +57,23 @@ var proxy = function(options) {
   return function(req, res) {
     var path = req.url;
 
+
     if (path === "/" ||
         url.parse(path).query) {
 
       metrics.mark("pass");
-      return req.pipe(request(origin + path)).pipe(res);
+      return req
+        .pipe(request(origin + path))
+          .on('error', (e) => {
+            metrics.mark("error");
+            console.warn(e);
+            return res.send(503)})
+        .pipe(res)
+          .on('error', (e) => {
+            metrics.mark("error");
+            console.warn(e);
+            return res.send(503);
+        });
     }
 
     return tp.fetchAndStore(origin + path,

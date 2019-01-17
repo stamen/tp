@@ -1,6 +1,6 @@
 {
-  "name": "@mojodna/tp",
-  "version": "0.1.0",
+  "name": "@stamen/tp",
+  "version": "0.1.1",
   "description": "A teeing reverse proxy",
   "author": "Seth Fitzsimmons <seth@mojodna.net>",
   "license": "BSD",
